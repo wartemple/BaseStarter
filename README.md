@@ -1,2 +1,10 @@
-# BaseStarter
-所有的基础库都在这
+# DjangoStarter
+
+创建基础项目
+
+```
+pip install Django
+django-admin startproject backend
+python manage.py startapp auth
+
+```
