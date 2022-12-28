@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+from corsheaders.defaults import default_methods, default_headers
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -43,12 +44,13 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'django_filters',
     'corsheaders',
+    'permission'
+    # 功能packages
     # 'drf_yasg', # openapi 自动生成接口
     # 'captcha', # 验证码
     # 'auditlog', # 审计日志包
 ]
 
-from corsheaders.defaults import default_methods, default_headers
 
 # 跨域增加忽略
 CORS_ALLOW_CREDENTIALS = True
@@ -58,7 +60,7 @@ CORS_ALLOW_HEADERS = list(default_headers)
 
 
 MIDDLEWARE = [
-    'django_prometheus.middleware.PrometheusBeforeMiddleware', # prometheus 采集开始
+    # 'django_prometheus.middleware.PrometheusBeforeMiddleware', # prometheus 采集开始
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -67,13 +69,13 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django_prometheus.middleware.PrometheusAfterMiddleware', # prometheus 采集结束
+    # 'django_prometheus.middleware.PrometheusAfterMiddleware', # prometheus 采集结束
 ]
 
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': ['rest_framework.renderers.JSONRenderer'],
     'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticated',),
-    'DEFAULT_AUTHENTICATION_CLASSES': ('auth.authentications.TokenAuthentication',),
+    'DEFAULT_AUTHENTICATION_CLASSES': ('permission.authentications.TokenAuthentication',),
     'DEFAULT_PAGINATION_CLASS': 'common.pagination.CustomPagination',
     'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.URLPathVersioning',
     'DEFAULT_FILTER_BACKENDS': [
@@ -118,8 +120,12 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'base',
+        'HOST': '127.0.0.1',
+        'PORT': 3306,
+        'USER': 'root',
+        'PASSWORD': '123456',
     }
 }
 
@@ -164,3 +170,4 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEFAULT_CUSTOM_PERMISSIONS_CODENAME2NAME = {'auth__user__password': '修改密码'}

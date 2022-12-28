@@ -16,15 +16,11 @@ class TokenAuthentication(TA):
     def authenticate_credentials(self, key: str):
         if not Token.objects.filter(key=key).exists():
             raise AuthenticationFailed('Invalid Token')
-
         token = Token.objects.get(key=key)
-
         if not token.user.is_active:
             raise AuthenticationFailed('Token user is not active')
-
         if self.is_token_expired(token):
             raise AuthenticationFailed('Token is already expired')
-
         token.created = timezone.now()
         token.save()
         return (token.user, token)
