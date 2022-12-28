@@ -18,7 +18,7 @@ class PermissionViewSet(BaseModelViewSet):
     serializer_class = PermissionSerializer
 
     def get_queryset(self):
-        content_type = ContentType.objects.filter(app_label='permission', model='auth')
+        content_type = ContentType.objects.get(app_label='permission', model='auth')
         return Permission.objects.filter(content_type=content_type).order_by('id')
 
 
@@ -27,6 +27,7 @@ class GroupViewSet(BaseModelViewSet):
     """
     角色接口
     """
+    verbose_name = '角色'
     serializer_class = GroupSerializer
     queryset = Group.objects.all().prefetch_related('permissions').order_by('id')
     search_fields = ('name',)
@@ -36,6 +37,7 @@ class UserViewSet(BaseModelViewSet):
     """
     用户接口
     """
+    verbose_name = '用户'
     serializer_class = UserSerializer
     queryset = User.objects.prefetch_related('groups').order_by('id')
     search_fields = ('username',)

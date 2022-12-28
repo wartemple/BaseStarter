@@ -8,6 +8,11 @@ from common.viewsets import BaseModelViewSet
 class PermissionGenerator:
     """权限生成器
     """
+    default_verbose_name = {
+        "permission": "权限",
+        "group": "角色",
+        "user": "用户"
+    }
 
     def __init__(self):
         self.default_action2verbose = {
@@ -49,7 +54,8 @@ class PermissionGenerator:
             action_name = custom_action_object.kwargs['name'].lower()
             codename = f"{model._meta.app_label}__{model._meta.model_name}__{action_name}"
             action_verbose_name = custom_action_object.kwargs.get('verbose_name', custom_action_object.kwargs['name'].lower())
-            name = f'{action_verbose_name}{model._meta.verbose_name}'
+            entity_name = self.default_verbose_name.get(model._meta.verbose_name, model._meta.verbose_name)
+            name = f'{action_verbose_name}{entity_name}'
             results.append(PermissionDO(codename=codename, name=name))
         return results
 
@@ -63,12 +69,13 @@ class PermissionGenerator:
         return serializer_class.Meta.model
 
     def _get_default_permissions(self, model) -> List[PermissionDO]:
+        entity_name = self.default_verbose_name.get(model._meta.verbose_name, model._meta.verbose_name)
         results = [
-            PermissionDO(codename=f'{model._meta.app_label}__{model._meta.model_name}', name=f"{model._meta.verbose_name}管理")
+            PermissionDO(codename=f'{model._meta.app_label}__{model._meta.model_name}', name=f"{entity_name}管理")
         ]
         for action_name, action_verbose in self.default_action2verbose.items():
             codename = f"{model._meta.app_label}__{model._meta.model_name}__{action_name}"
-            name = f'{action_verbose}{model._meta.verbose_name}'
+            name = f'{action_verbose}{entity_name}'
             results.append(PermissionDO(codename=codename, name=name))
         return results
 

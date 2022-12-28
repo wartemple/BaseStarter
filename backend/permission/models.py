@@ -2,9 +2,8 @@
 from typing import List
 
 from common.models import BaseModel
-from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
-
+from django.contrib.auth.models import Permission
 
 
 class Auth(BaseModel):
