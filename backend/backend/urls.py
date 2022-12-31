@@ -14,8 +14,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import path, include
-
+from common import views as common_views
 
 urlpatterns = [
     path(r'api/auth/', include('permission.urls')),
+    path(r'api/file/upload/', common_views.UploadFileView.as_view())
 ]

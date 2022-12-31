@@ -10,6 +10,7 @@ drf-nested-routers
 django-prometheus==1.0.4
 django-cors-headers==3.6.0
 django-soft-delete==0.9.21
+minio
 # packages
 requests
 openpyxl
