@@ -15,8 +15,10 @@ Including another URLconf
 """
 from django.urls import path, include
 from common import views as common_views
+from report import views as report_views
 
 urlpatterns = [
     path(r'api/auth/', include('permission.urls')),
-    path(r'api/file/upload/', common_views.UploadFileView.as_view())
+    path(r'api/file/upload/', common_views.UploadFileView.as_view()),
+    path(r'api/index/', report_views.index)
 ]
