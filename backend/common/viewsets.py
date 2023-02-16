@@ -2,9 +2,11 @@
 from rest_framework.viewsets import ModelViewSet
 
 from .mixins import BulkDeleteModelMixin, ExportModelMixin, UploadModelMixin
+from common.render import CustomRenderer
 
 
 class BaseModelViewSet(ModelViewSet, ExportModelMixin, BulkDeleteModelMixin, UploadModelMixin):
+    renderer_classes = [CustomRenderer, ]
     filterset_fields = {
         'id': ['in']
     }

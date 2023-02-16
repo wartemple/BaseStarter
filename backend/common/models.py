@@ -15,6 +15,7 @@ class BaseModel(SoftDeleteModel):
     class Meta:
         abstract = True
 
+
 class BaseEnum(Enum):
 
     @classmethod
