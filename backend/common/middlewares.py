@@ -2,6 +2,7 @@ import logging
 
 from django.http import JsonResponse
 from django.utils.deprecation import MiddlewareMixin
+import traceback
 
 logger = logging.getLogger(__name__)
 
@@ -14,7 +15,7 @@ class BYException(Exception):
 
 class ExceptionMiddleware(MiddlewareMixin):
     def process_exception(self, request, exception):
-        logger.error(str(exception))
+        traceback.print_exc()
         if isinstance(exception, ValueError):
             new_exception = BYException(code=40001, message='Invalid Parameter(s)')
         elif isinstance(exception, (

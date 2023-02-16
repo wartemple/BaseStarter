@@ -41,12 +41,8 @@ class UploadModelMixin:
             model = model_class()
             for filed, title in self.import_filed2title.items():
                 setattr(model, filed, row[title])
-            self.set_obj_field(model)
             objs.append(model)
         csv_file.close()
         with transaction.atomic():
             model_class.objects.bulk_create(objs)
         return Response({"message": "upload success"})
-
-    def set_obj_field(self, model):
-        pass

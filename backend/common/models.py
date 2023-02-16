@@ -2,6 +2,8 @@
 import uuid
 from django.db import models
 from django_softdelete.models import SoftDeleteModel
+from enum import Enum
+from typing import List
 
 
 class BaseModel(SoftDeleteModel):
@@ -9,8 +11,21 @@ class BaseModel(SoftDeleteModel):
     uuid = models.UUIDField(default=uuid.uuid4, editable=False)
     created_at = models.DateTimeField(verbose_name="创建时间", auto_now_add=True)
     updated_at = models.DateTimeField(verbose_name="更新时间", auto_now=True)
-    username = models.CharField(verbose_name="用户名称", max_length=128, default="admin")
-    tenant_name = models.CharField(verbose_name="租户名称", max_length=128, default="admin")
 
     class Meta:
         abstract = True
+
+class BaseEnum(Enum):
+
+    @classmethod
+    def values(cls) -> List[str]:
+        return [_.value for _ in cls]
+
+    @classmethod
+    def has_value(cls, value: str) -> bool:
+        return value in cls.values()
+
+    @classmethod
+    def get_value(cls, value: str) -> Any:
+        enum_map = {_.value: _ for _ in cls}
+        return enum_map[value]

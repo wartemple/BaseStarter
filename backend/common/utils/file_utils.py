@@ -2,10 +2,10 @@ import json
 import os
 
 from .time_utils import TimeUtils
-from .hash_utils import HashUtils
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 from django.conf import settings
+from pathlib import Path
 
 
 class FileUtils:
@@ -28,3 +28,9 @@ class FileUtils:
         filename = f'{TimeUtils.get_now_datetime_str()}_{file.name}'
         path = default_storage.save(f'media/tmp/{filename}', ContentFile(file.read()))
         return os.path.join(settings.BASE_DIR, path)
+
+    @classmethod
+    def iter_dir(self, path):
+        for child in Path(path).iterdir():
+            if not child.is_dir():
+                yield child
