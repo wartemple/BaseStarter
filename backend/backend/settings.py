@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # new init packages
+    'drf_spectacular',  # swagger接口文档生成
+    'drf_spectacular_sidecar', # 静态资源包
     'django_prometheus', # 监控接口访问情况
     'rest_framework',
     'rest_framework.authtoken',
@@ -44,10 +46,23 @@ INSTALLED_APPS = [
     'corsheaders',
     'permission'
     # 功能packages
-    # 'drf_yasg', # openapi 自动生成接口
     # 'captcha', # 验证码
     # 'auditlog', # 审计日志包
 ]
+
+# drf_spectacular 配置
+SPECTACULAR_SETTINGS = {
+    'SWAGGER_UI_DIST': 'SIDECAR',  # shorthand to use the sidecar instead
+    'SWAGGER_UI_FAVICON_HREF': 'SIDECAR',
+    'REDOC_DIST': 'SIDECAR',
+    # OTHER SETTINGS
+    'TITLE': '智能文档处理平台',
+    'DESCRIPTION': '金融os智能文档处理平台',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    'COMPONENT_SPLIT_REQUEST': True
+}
+
 
 
 # 跨域增加忽略
@@ -73,6 +88,7 @@ MIDDLEWARE = [
 ]
 
 REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',  ## openAPI 自动生成
     'DEFAULT_RENDERER_CLASSES': ['rest_framework.renderers.JSONRenderer'],
     'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticated',),
     'DEFAULT_AUTHENTICATION_CLASSES': ('permission.authentications.TokenAuthentication',),
