@@ -52,5 +52,5 @@ class Command(BaseCommand):
             logger.info('create user(admin) success!')
 
     def _get_superuser_info(self,):
-        name, email, password, group_names = 'admin', 'admin@byjk.com', '123456', ['系统管理员']
+        name, email, password, group_names = 'admin', 'admin@.com', '123456', ['系统管理员']
         return name, email, password, group_names
