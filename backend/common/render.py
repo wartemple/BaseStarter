@@ -4,7 +4,12 @@ from rest_framework.renderers import JSONRenderer
 class CustomRenderer(JSONRenderer):
 
     def render(self, data, accepted_media_type=None, renderer_context=None):
-        status_code = renderer_context['response'].status_code
+        try:
+            status_code = renderer_context['response'].status_code
+        except Exception:
+            status_code = 400
+        if status_code == 204:
+            return super().render(data, accepted_media_type, renderer_context)
         response = {
           "status": "success",
           "code": status_code,
