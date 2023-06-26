@@ -3,7 +3,7 @@ import uuid
 from django.db import models
 from django_softdelete.models import SoftDeleteModel
 from enum import Enum
-from typing import List
+from typing import List, Any
 
 
 class BaseModel(SoftDeleteModel):

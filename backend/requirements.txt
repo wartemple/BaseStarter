@@ -4,6 +4,7 @@ django_filter==22.1
 django-simple-captcha==0.5.17
 django-auditlog==2.1.1
 mysqlclient==2.1.1
+gunicorn==20.1.0
 # 新增
 django-cors-headers==3.6.0
 drf-nested-routers
