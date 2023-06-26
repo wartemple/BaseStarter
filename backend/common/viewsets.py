@@ -6,7 +6,7 @@ from common.render import CustomRenderer
 
 
 class BaseModelViewSet(ModelViewSet, ExportModelMixin, BulkDeleteModelMixin, UploadModelMixin):
-    renderer_classes = [CustomRenderer, ]
+    renderer_classes = [CustomRenderer, ] # TODO: 项目是否需要自定义返回结果
     filterset_fields = {
         'id': ['in']
     }
