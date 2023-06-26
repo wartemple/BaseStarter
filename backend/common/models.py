@@ -8,7 +8,8 @@ from typing import List, Any
 
 class BaseModel(SoftDeleteModel):
     """基础数据表"""
-    uuid = models.UUIDField(default=uuid.uuid4, editable=False)
+    uuid = models.UUIDField(default=uuid.uuid4, editable=False, db_index=True, primary_key=True)
+    
     created_at = models.DateTimeField(verbose_name="创建时间", auto_now_add=True)
     updated_at = models.DateTimeField(verbose_name="更新时间", auto_now=True)
 
