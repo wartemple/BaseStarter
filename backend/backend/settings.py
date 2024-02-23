@@ -38,8 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # new init packages
     'drf_spectacular',  # swagger接口文档生成
-    'drf_spectacular_sidecar', # 静态资源包
-    'django_prometheus', # 监控接口访问情况
+    'drf_spectacular_sidecar',  # 静态资源包
+    'django_prometheus',  # 监控接口访问情况
     'rest_framework',
     'rest_framework.authtoken',
     'django_filters',
