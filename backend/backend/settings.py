@@ -64,7 +64,6 @@ SPECTACULAR_SETTINGS = {
 }
 
 
-
 # 跨域增加忽略
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_ALLOW_ALL = True
@@ -107,7 +106,7 @@ REST_FRAMEWORK = {
 }
 
 AUTH_CONFIGS = {
-    "TOKEN_EXPIRED": 604800
+    'TOKEN_EXPIRED': 604800
 }
 
 ROOT_URLCONF = 'backend.urls'
@@ -180,7 +179,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, 'static'),
 )
 
 STATIC_URL = '/static/'
@@ -193,7 +192,7 @@ DEFAULT_CUSTOM_PERMISSIONS_CODENAME2NAME = {'auth__user__password': '修改密�
 
 # Service Config
 MINIO = {
-    "url": os.getenv("MINIO_URL", "127.0.0.1:9000"),
-    "user": os.getenv("MINIO_USER", "ROOTUSER"),
-    "password": os.getenv("MINIO_PASSWORD", "CHANGEME123"),
+    'url': os.getenv('MINIO_URL', '127.0.0.1:9000'),
+    'user': os.getenv('MINIO_USER', 'ROOTUSER'),
+    'password': os.getenv('MINIO_PASSWORD', 'CHANGEME123'),
 }
