@@ -11,16 +11,16 @@ class CustomRenderer(JSONRenderer):
         if status_code == 204:
             return super().render(data, accepted_media_type, renderer_context)
         response = {
-          "status": "success",
-          "code": status_code,
-          "data": data,
-          "message": ''
+          'status': 'success',
+          'code': status_code,
+          'data': data,
+          'message': ''
         }
         if not str(status_code).startswith('2'):
-            response["status"] = "error"
-            response["data"] = None
+            response['status'] = 'error'
+            response['data'] = None
             try:
-                response["message"] = data["detail"]
+                response['message'] = data['detail']
             except KeyError:
-                response["data"] = data
+                response['data'] = data
         return super(CustomRenderer, self).render(response, accepted_media_type, renderer_context)

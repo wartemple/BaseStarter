@@ -7,9 +7,9 @@ class ModelUtils:
         results = []
         for obj in queryset:
             result = {
-				"value": obj.id,
-				"label": getattr(obj, label_key),
-			}
+                "value": obj.id,
+                "label": getattr(obj, label_key),
+            }
             if model.objects.filter(parent=obj):
                 result["children"] = cls.get_children(model.objects.filter(parent=obj), label_key, model)
             results.append(result)

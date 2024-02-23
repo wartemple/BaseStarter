@@ -6,7 +6,7 @@ import openpyxl
 
 class ViewUtils:
     @classmethod
-    def get_excel_response(cls, data, file_name):
+    def get_excel_response(cls, data, file_name: str):
         file_ = BytesIO()
         writer = pd.ExcelWriter(file_, engine="xlsxwriter")
         df = pd.DataFrame(data)

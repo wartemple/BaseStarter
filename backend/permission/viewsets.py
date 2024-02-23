@@ -22,7 +22,6 @@ class PermissionViewSet(BaseModelViewSet):
         return Permission.objects.filter(content_type=content_type).order_by('id')
 
 
-
 class GroupViewSet(BaseModelViewSet):
     """
     角色接口

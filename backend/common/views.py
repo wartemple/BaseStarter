@@ -5,6 +5,7 @@ from rest_framework.views import APIView
 from common.utils import HashUtils, FileUtils
 from common.mappers import MinioMapper
 
+
 class UploadFileView(APIView):
     minio_mapper = MinioMapper()
 
