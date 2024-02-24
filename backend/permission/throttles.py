@@ -7,7 +7,7 @@ class LoginIpThrottle(SimpleRateThrottle):
     """
     scope = 'login'
 
-    def get_cache_key(self, request, view):
+    def get_cache_key(self, request, view) -> str:
         # 通过ip限制节流
         return self.get_ident(request)
 
@@ -18,7 +18,5 @@ class LoginUserThrottle(SimpleRateThrottle):
     """
     scope = 'login'
 
-    def get_cache_key(self, request, view):
-        if 'username' in request.data:
-            username = request.data['username']
-        return username
+    def get_cache_key(self, request, view) -> str:
+        return request.data.get('username', '')

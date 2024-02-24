@@ -7,17 +7,17 @@ import traceback
 logger = logging.getLogger(__name__)
 
 
-class BYException(Exception):
-    def __init__(self, *args: object, **kwargs) -> None:
+class BDExceptionError(Exception):
+    def __init__(self, *args: object, **kwargs: dict) -> None:
         self.code = kwargs['code']
         self.message = kwargs['message']
 
 
 class ExceptionMiddleware(MiddlewareMixin):
-    def process_exception(self, request, exception):
+    def process_exception(self, request, exception) -> JsonResponse:
         traceback.print_exc()
         if isinstance(exception, ValueError):
-            new_exception = BYException(code=40001, message='Invalid Parameter(s)')
+            new_exception = BDExceptionError(code=40001, message='Invalid Parameter(s)')
         elif isinstance(exception, (
                 BufferError,
                 ArithmeticError,
@@ -32,11 +32,11 @@ class ExceptionMiddleware(MiddlewareMixin):
                 ReferenceError,
                 RuntimeError,
                 SyntaxError)):
-            new_exception = BYException(code=40002, message="Web Error")
+            new_exception = BDExceptionError(code=40002, message='Web Error')
         else:
-            new_exception = BYException(code=500, message="NO FOUND ERROR")
+            new_exception = BDExceptionError(code=500, message='NO FOUND ERROR')
         return JsonResponse(data={
-            "message": new_exception.message,
-            "code": new_exception.code,
-            "detail": str(exception)
+            'message': new_exception.message,
+            'code': new_exception.code,
+            'detail': str(exception)
         }, status=400)

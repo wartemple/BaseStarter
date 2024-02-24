@@ -36,9 +36,7 @@ class UserInfoView(generics.RetrieveAPIView):
 
 
 class UserLogoutView(APIView):
-    """登出接口
-
-    """
+    """登出接口"""
 
     def post(self, request, *args, **kwargs):
         Token.objects.filter(user=self.request.user).delete()

@@ -2,7 +2,6 @@ from django.contrib.auth.models import Group, Permission, User
 from rest_framework import serializers
 
 
-
 class PermissionSerializer(serializers.ModelSerializer):
 
     class Meta:

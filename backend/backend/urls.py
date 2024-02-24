@@ -1,8 +1,8 @@
 from common import views as common_views
 from django.urls import include, path
-from drf_spectacular.views import (SpectacularAPIView, SpectacularRedocView,
-                                   SpectacularSwaggerView)
+from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 from report import views as report_views
+
 
 urlpatterns = [
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
